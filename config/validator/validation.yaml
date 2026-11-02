@@ -1,0 +1,77 @@
+App\Entity\Location:
+    properties:
+        city:
+            - NotBlank:
+                  groups: [new, edit]
+            - Length:
+                  min: 2
+                  max: 255
+                  groups: [new, edit]
+
+        country:
+            - NotBlank:
+                  groups: [new, edit]
+            - Choice:
+                  choices: ['FR', 'IT', 'ES', 'PL', 'DE', 'GB', 'US']
+                  groups: [new, edit]
+
+        latitude:
+            - NotBlank:
+                  groups: [new, edit]
+            - Range:
+                  min: -90
+                  max: 90
+                  groups: [new, edit]
+
+        longitude:
+            - NotBlank:
+                  groups: [new, edit]
+            - Range:
+                  min: -180
+                  max: 180
+                  groups: [new, edit]
+
+App\Entity\Forecasts:
+    properties:
+        date:
+            - NotBlank:
+                  groups: [new, edit]
+            - Type:
+                  type: DateTimeInterface
+                  groups: [new, edit]
+
+        temperature:
+            - NotBlank:
+                  groups: [new, edit]
+            - Range:
+                  min: -90
+                  max: 60
+                  groups: [new, edit]
+
+        humidity:
+            - NotBlank:
+                  groups: [new, edit]
+            - Range:
+                  min: 0
+                  max: 100
+                  groups: [new, edit]
+
+        wind:
+            - NotBlank:
+                  groups: [new, edit]
+            - Range:
+                  min: 0
+                  max: 400
+                  groups: [new, edit]
+
+        pressure:
+            - NotBlank:
+                  groups: [new, edit]
+            - Range:
+                  min: 850
+                  max: 1100
+                  groups: [new, edit]
+
+        location:
+            - NotBlank:
+                  groups: [new, edit]
