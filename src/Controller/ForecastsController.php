@@ -10,11 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/forecasts')]
 final class ForecastsController extends AbstractController
 {
     #[Route(name: 'app_forecasts_index', methods: ['GET'])]
+    #[IsGranted('ROLE_FORECASTS_INDEX')]
     public function index(ForecastsRepository $forecastsRepository): Response
     {
         return $this->render('forecasts/index.html.twig', [
@@ -23,6 +25,7 @@ final class ForecastsController extends AbstractController
     }
 
     #[Route('/new', name: 'app_forecasts_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_FORECASTS_NEW')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $forecast = new Forecasts();
@@ -45,6 +48,7 @@ final class ForecastsController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_forecasts_show', methods: ['GET'])]
+    #[IsGranted('ROLE_FORECASTS_SHOW')]
     public function show(Forecasts $forecast): Response
     {
         return $this->render('forecasts/show.html.twig', [
@@ -53,6 +57,7 @@ final class ForecastsController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_forecasts_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_FORECASTS_EDIT')]
     public function edit(Request $request, Forecasts $forecast, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ForecastsType::class, $forecast, [
@@ -73,6 +78,7 @@ final class ForecastsController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_forecasts_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_FORECASTS_DELETE')]
     public function delete(Request $request, Forecasts $forecast, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$forecast->getId(), $request->getPayload()->getString('_token'))) {
