@@ -74,6 +74,13 @@ class Forecasts
         return $this;
     }
 
+    public function getFahrenheit(): ?string
+    {
+        $fahrenheit = $this->getTemperature() * 9 / 5 + 32;
+
+        return "$fahrenheit";
+    }
+
     public function getHumidity(): ?int
     {
         return $this->humidity;
